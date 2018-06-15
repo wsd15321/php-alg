@@ -13,17 +13,17 @@ class ST {
 
     public function put($key, $value)
     {
-
+        $this->list[$key] = $value;
     }
 
     public function get($key)
     {
-
+        return $this->list[$key];
     }
 
     public function delete($key)
     {
-
+        unset($this->list[$key]);
     }
 
     /**
@@ -32,7 +32,7 @@ class ST {
      */
     public function contains($key)
     {
-
+        return isset($this->list[$key]);
     }
 
     /**
@@ -40,7 +40,7 @@ class ST {
      */
     public function isEmpty()
     {
-
+        return count($this->list) === 0;
     }
 
     /**
@@ -48,7 +48,7 @@ class ST {
      */
     public function size()
     {
-
+        return count($this->list);
     }
 
     /**
@@ -56,7 +56,9 @@ class ST {
      */
     public function min()
     {
-
+        ksort($this->list);
+        reset($this->list);
+        return key($this->list);
     }
 
     /**
@@ -64,16 +66,29 @@ class ST {
      */
     public function max()
     {
-
+        ksort($this->list);
+        end($this->list);
+        return key($this->list);
     }
 
     /**
      * 小于等于key的最大键
-     * @return $key
+     * @param string|int $key
+     * @return string|int
      */
     public function floor($key)
     {
-
+        if (!isset($this->list[$key])) {
+            return null;
+        }
+        ksort($this->list);
+        $keys = array_keys($this->list);
+        if (array_flip($keys)[$key] === 0) {
+            return null;
+        }
+        $keys = array_slice($keys, 0, array_flip($keys)[$key]);
+        end($keys);
+        return current($keys);
     }
 
     /**
@@ -82,7 +97,17 @@ class ST {
      */
     public function ceiling($key)
     {
-
+        if (!isset($this->list[$key])) {
+            return null;
+        }
+        ksort($this->list);
+        $keys = array_keys($this->list);
+        if (array_flip($keys)[$key] >= count($keys) - 1) {
+            return null;
+        }
+        $keys = array_slice($keys, array_flip($keys)[$key] + 1);
+        reset($keys);
+        return current($keys);
     }
 
     /**
@@ -91,17 +116,25 @@ class ST {
      */
     public function rank($key)
     {
-
+        if (!isset($this->list[$key])) {
+            return null;
+        }
+        ksort($this->list);
+        $keys = array_keys($this->list);
+        $keys = array_slice($keys, 0, array_flip($keys)[$key]);
+        return count($keys);
     }
     
     /**
      * 排名为k的键
      * @param int $k
-     * @return $key
+     * @return string|int
      */
     public function select($k)
     {
-
+        ksort($this->list);
+        $keys = array_keys($this->list);
+        return $keys[$k];
     }
 
     /**
@@ -109,7 +142,11 @@ class ST {
      */
     public function deleteMin()
     {
-
+        if (!$this->isEmpty()) {
+            ksort($this->list);
+            $keys = array_keys($this->list);
+            unset($this->list[$keys[0]]);
+        }
     }
 
     /**
@@ -117,7 +154,11 @@ class ST {
      */
     public function deleteMax()
     {
-
+        if (!$this->isEmpty()) {
+            ksort($this->list);
+            $keys = array_keys($this->list);
+            unset($this->list[$keys[count($keys) - 1]]);
+        }
     }
 
     /**
@@ -143,7 +184,8 @@ class ST {
      */
     public function getKeys()
     {
-
+        ksort($this->list);
+        return array_keys($this->list);
     }
 
 }
