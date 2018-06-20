@@ -9,6 +9,8 @@ class BST
 
     public $node = ['value' => null, 'left' => [], 'right' => [], 'N'=>0];
 
+    private $s = 0;
+
     /**
      * @param string|int $key
      * @param string|int|object|null $value
@@ -27,7 +29,8 @@ class BST
                 $arr['right']['value'] = $value;
                 $arr['right']['right'] = [];
                 $arr['right']['left'] = [];
-                $arr['right']['N'] = $arr['N'] + 1;
+                $this->s = $this->s + 1;
+                $arr['right']['N'] = $this->s;
             } else {
                 $this->putValue($value, $arr['right']);
             }
@@ -36,7 +39,8 @@ class BST
                 $arr['left']['value'] = $value;
                 $arr['left']['right'] = [];
                 $arr['left']['left'] = [];
-                $arr['left']['N'] = $arr['N'] + 1;
+                $this->s = $this->s + 1;
+                $arr['left']['N'] = $this->s;
             } else {
                 $this->putValue($value, $arr['left']);
             }
@@ -78,7 +82,7 @@ class BST
      */
     public function size()
     {
-        return $this->N;
+        return $this->s;
     }
 
 }

@@ -11,6 +11,7 @@ $st->put(17);
 $st->put(20);
 $st->put(2);
 $st->put(12);
-var_dump($st->node);
+$st->put(8);
+var_dump($st->size());
 
 
