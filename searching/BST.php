@@ -46,7 +46,6 @@ class BST
             }
         } else {
             $arr['value'] = $value;
-            $arr['N'] = $arr['N'] + 1;
         }
     }
 
