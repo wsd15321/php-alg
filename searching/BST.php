@@ -9,8 +9,10 @@ class BST
 
     private $node = null;
 
+    /** @var BST */
     private $left_node = null;
 
+    /** @var BST */
     private $right_node = null;
 
     /** @var int */
@@ -22,16 +24,6 @@ class BST
      */
     public function put($value, $node = null)
     {
-        if ($node === null) {
-            $node = $this;
-        }
-        if ($node->node === null) {
-            $node->node = $value;
-        } elseif ($node->left_node !== null && $value < $node->left_node) {
-            $node->put($value, $node->left_node);
-        } elseif ($node->right_node !== null && $value > $node->right_node) {
-            $node->put($value, $node->right_node);
-        }
 
     }
 
