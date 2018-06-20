@@ -57,7 +57,6 @@ class BST
      */
     public function get($key)
     {
-
         return null;
     }
 
@@ -74,7 +73,7 @@ class BST
      */
     public function isEmpty()
     {
-        return $this->node === null;
+        return $this->s === 0;
     }
 
     /**
