@@ -4,14 +4,10 @@ require_once(__DIR__ . '/Autoload.php');
 
 $st = new \searching\BST();
 
-$st->put(11);
-$st->put(10);
-$st->put(7);
-$st->put(17);
-$st->put(20);
-$st->put(2);
-$st->put(12);
-$st->put(8);
-var_dump($st->size());
+$st->put(4,12);
+$st->put(2,10);
+$st->put(3,6);
+$st->put(8, 11);
+var_dump($st->get(3));
 
 

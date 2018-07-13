@@ -3,51 +3,49 @@
 
 namespace searching;
 
+use common\Compare;
 
-class BST
+class BST extends Compare
 {
 
-    public $node = ['value' => null, 'left' => [], 'right' => [], 'N'=>0];
+    public $root = null;
 
-    private $s = 0;
+    public $left = null;
+
+    public $right = null;
+
+    public $n = 0;
+
+    public function put($key, $value)
+    {
+        $this->putValue($this, $value, $key);
+    }
 
     /**
-     * @param string|int $key
-     * @param string|int|object|null $value
+     * @param BST $node
+     * @return void
      */
-    public function put($value)
+    private function putValue($node, $key, $value, $n = 0)
     {
-        $this->putValue($value, $this->node);
-    }
-    
-    private function putValue($value, &$arr)
-    {
-        if ($arr['value'] === null) {
-            $arr['value'] = $value;
-        } elseif ($value > $arr['value']) {
-            if ($arr['right'] === []) {
-                $arr['right']['value'] = $value;
-                $arr['right']['right'] = [];
-                $arr['right']['left'] = [];
-                $this->s = $this->s + 1;
-                $arr['right']['N'] = $this->s;
-            } else {
-                $this->putValue($value, $arr['right']);
-            }
-        } elseif ($value < $arr['value']) {
-            if ($arr['left'] === []) {
-                $arr['left']['value'] = $value;
-                $arr['left']['right'] = [];
-                $arr['left']['left'] = [];
-                $this->s = $this->s + 1;
-                $arr['left']['N'] = $this->s;
-            } else {
-                $this->putValue($value, $arr['left']);
-            }
+        $node->n = $n + 1;
+        if ($node->root === null) {
+            $node->root = [$key, $value];
         } else {
-            $arr['value'] = $value;
+            $cmp = $node->compareTo($value);
+            if ($cmp) {
+                if ($node->left === null) {
+                    $node->left = new BST();
+                }
+                call_user_func([$this, 'putValue'], $node->left, $key, $value, $node->n);
+            } else {
+                if ($node->right === null) {
+                    $node->right = new BST();
+                }
+                call_user_func([$this, 'putValue'], $node->right, $key, $value, $node->n);
+            }
         }
     }
+
 
 
     /**
@@ -56,7 +54,28 @@ class BST
      */
     public function get($key)
     {
-        return null;
+        return $this->getValue($this, $key);
+    }
+
+    /**
+     * @param BST $node
+     */
+    private function getValue($node, $value)
+    {
+        if ($node->root[1] === $value) {
+            return $node->root[0];
+        }
+        $cmp = $node->compareTo($value);
+        if (($cmp && $node->left === null) || (!$cmp && $node->right === null)) {
+            return null;
+        }
+
+        if ($cmp) {
+            return call_user_func([$this, 'getValue'], $node->left, $value);
+        } else {
+            return call_user_func([$this, 'getValue'], $node->right, $value);
+        }
+
     }
 
     /**
