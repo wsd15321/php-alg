@@ -5,15 +5,22 @@ namespace common;
 class Compare
 {
 
-    public $root = null;
+    protected $root = null;
 
-    public $left = null;
+    protected $left = null;
 
-    public $right = null;
+    protected $right = null;
 
+    /**
+     * 小于root true
+     * 大于 false
+     */
     public function compareTo($value)
     {
-        return $this->root[1] > $value;
+        if (!is_array($this->root) || $this->root === null) {
+            exit(var_export($this, true));
+        }
+        return current($this->root) > $value;
     }
 
 }
