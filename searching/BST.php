@@ -16,8 +16,11 @@ class BST extends Compare
 
     public $n = 0;
 
+    public $fixed = 0;
+
     public function put($key, $value)
     {
+        $this->fixed = $this->fixed + 1;
         $this->putValue($key, $value);
     }
 
@@ -27,7 +30,6 @@ class BST extends Compare
      */
     private function putValue($key, $value)
     {
-        $n = 0;
         $item = $this;
         while ($item->root !== null) {
             $cmp = $item->compareTo($value);
@@ -45,6 +47,7 @@ class BST extends Compare
             $item = new BST();
         }
         $item->root = [$key => $value];
+        $item->n = $this->fixed;
     }
 
     public function getMin()
