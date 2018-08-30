@@ -13,6 +13,7 @@ $st->put(1,4);
 $st->put(7,8);
 $st->put(6,14);
 
-var_dump($st);
+$value = $st->get(55);
+var_dump($value);
 
 

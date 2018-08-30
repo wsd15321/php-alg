@@ -58,7 +58,29 @@ class BST extends Compare
             return 'fail';
         }
 
+    }
 
+    /**
+     * @param int $key
+     * @return string|integer
+     */
+    public function get($value)
+    {
+        /** @var BST $item */
+        $item = $this;
+        if ($this->root === null) {
+            return null;
+        }
+        while ($item === null || $item->root !== null) {
+            if ($value > current($item->root)) {
+                $item = $item->right;
+            } elseif ($value < current($item->root)) {
+                $item = $item->left;
+            } else {
+                return $item->root;
+            }
+        }
+        return null;
     }
 
 }
