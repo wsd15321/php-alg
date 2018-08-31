@@ -52,12 +52,28 @@ class BST extends Compare
 
     public function getMin()
     {
+        return $this->getRoot('left');
+    }
+
+    public function getMax()
+    {
+        return $this->getRoot('right');
+    }
+
+    public function getRoot($name)
+    {
         /** @var BST $item */
         $item = $this;
         if ($item->root === null) {
-            return 'fail';
+            return null;
         }
-
+        while ($item !== null || $item->$name !== null) {
+            if ($item->$name === null) {
+                return $item->root;
+            }
+            $item = $item->$name;
+        }
+        return null;
     }
 
     /**

@@ -13,7 +13,8 @@ $st->put(1,4);
 $st->put(7,8);
 $st->put(6,14);
 
-$value = $st->get(55);
-var_dump($value);
+
+$value = $st->getMax();
+var_dump($value, $st->getMin());
 
 
