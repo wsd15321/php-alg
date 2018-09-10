@@ -126,5 +126,26 @@ class BST extends Compare
         }
     }
 
+    public function deleteMax()
+    {
+        if ($this->right === null) {
+            return $this;
+        }
+        $this->right = $this->deleteMaxValue($this);
+        return $this;
+    }
+
+    /**
+     * @param BST $node
+     */
+    public function deleteMaxValue($node)
+    {
+        if ($node->right === null) {
+            return $node->left;
+        } else {
+            return $this->deleteMaxValue($node->right);
+        }
+    }
+
 
 }

@@ -15,6 +15,6 @@ $st->put(6,14);
 
 
 //$value = $st->getMax();
-var_dump($st->deleteMin());
+var_dump($st->deleteMax());
 
 
