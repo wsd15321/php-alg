@@ -52,14 +52,17 @@ class BST extends Compare
 
     public function getMin()
     {
-        return $this->getRoot('left');
+        return $this->getRoot('left')->root;
     }
 
     public function getMax()
     {
-        return $this->getRoot('right');
+        return $this->getRoot('right')->root;
     }
 
+    /**
+     * @return BST;
+     */
     public function getRoot($name)
     {
         /** @var BST $item */
@@ -69,7 +72,7 @@ class BST extends Compare
         }
         while ($item !== null || $item->$name !== null) {
             if ($item->$name === null) {
-                return $item->root;
+                return $item;
             }
             $item = $item->$name;
         }
@@ -98,5 +101,30 @@ class BST extends Compare
         }
         return null;
     }
+
+    /**
+     * @return object|null
+     */
+    public function deleteMin()
+    {
+        if ($this->left === null) {
+            return $this;
+        }
+        $this->left = $this->deleteMinValue($this);
+        return $this;
+    }
+
+    /**
+     * @param BST $node
+     */
+    private function deleteMinValue($node)
+    {
+        if ($node->left === null) {
+            return $node->right;
+        } else {
+            return $this->deleteMinValue($node->left);
+        }
+    }
+
 
 }

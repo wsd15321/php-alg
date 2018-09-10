@@ -14,7 +14,7 @@ $st->put(7,8);
 $st->put(6,14);
 
 
-$value = $st->getMax();
-var_dump($value, $st->getMin());
+//$value = $st->getMax();
+var_dump($st->deleteMin());
 
 
