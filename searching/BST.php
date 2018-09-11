@@ -110,19 +110,19 @@ class BST extends Compare
         if ($this->left === null) {
             return $this;
         }
-        $this->left = $this->deleteMinValue($this);
+        $this->deleteMinValue($this);
         return $this;
     }
 
     /**
      * @param BST $node
      */
-    private function deleteMinValue($node)
+    private function deleteMinValue(&$node)
     {
         if ($node->left === null) {
-            return $node->right;
+            $node = $node->right;
         } else {
-            return $this->deleteMinValue($node->left);
+            $node->deleteMinValue($node->left);
         }
     }
 
@@ -131,20 +131,37 @@ class BST extends Compare
         if ($this->right === null) {
             return $this;
         }
-        $this->right = $this->deleteMaxValue($this);
+        $this->deleteMaxValue($this);
         return $this;
     }
 
     /**
      * @param BST $node
      */
-    public function deleteMaxValue($node)
+    public function deleteMaxValue(&$node)
     {
         if ($node->right === null) {
-            return $node->left;
+            $node = $node->left;
         } else {
-            return $this->deleteMaxValue($node->right);
+            $this->deleteMaxValue($node->right);
         }
+    }
+
+    /**
+     * @param string|integer $key
+     */
+    public function delete($value)
+    {
+        $cmp = $this->compareTo($value);
+
+    }
+
+    /**
+     * @param BST $node
+     */
+    public function deleteValue($node, $value)
+    {
+
     }
 
 
