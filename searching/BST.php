@@ -32,7 +32,7 @@ class BST extends Compare
     {
         $item = $this;
         while ($item->root !== null) {
-            $cmp = $item->compareTo($value);
+            $cmp = $item->compareTo($key);
             if ($cmp) {
                 $item = &$item->left;
             } else {
@@ -83,7 +83,7 @@ class BST extends Compare
      * @param int $key
      * @return string|integer
      */
-    public function get($value)
+    public function get($key)
     {
         /** @var BST $item */
         $item = $this;
@@ -91,9 +91,9 @@ class BST extends Compare
             return null;
         }
         while ($item === null || $item->root !== null) {
-            if ($value > current($item->root)) {
+            if ($key > key($item->root)) {
                 $item = $item->right;
-            } elseif ($value < current($item->root)) {
+            } elseif ($key < key($item->root)) {
                 $item = $item->left;
             } else {
                 return $item->root;
