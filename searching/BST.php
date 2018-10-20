@@ -150,18 +150,36 @@ class BST extends Compare
     /**
      * @param string|integer $key
      */
-    public function delete($value)
+    public function delete($key)
     {
-        $cmp = $this->compareTo($value);
-
+        return $this->deleteValue($this, $key);
     }
 
     /**
      * @param BST $node
      */
-    public function deleteValue($node, $value)
+    public function deleteValue($node, $key)
     {
+        $cmp = $node->compareTo($key);
 
+    }
+
+    public function min()
+    {
+        return $this->minNode($this);
+    }
+
+    /**
+     * @param BST $node
+     * @return BST;
+     */
+    public function minNode($node)
+    {
+        if ($node->left === null) {
+            return $node;
+        } else {
+            return $this->minNode($node->left);
+        }
     }
 
 

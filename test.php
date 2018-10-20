@@ -15,6 +15,6 @@ $st->put(6,14);
 
 
 //$value = $st->getMax();
-var_dump($st->get(11));
+var_dump($st);
 
 
