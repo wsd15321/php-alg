@@ -152,21 +152,40 @@ class BST extends Compare
      */
     public function delete($key)
     {
-        return $this->deleteValue($this, $key);
+         $this->deleteValue($this, $key);
+         return $this;
     }
 
     /**
      * @param BST $node
      */
-    public function deleteValue($node, $key)
+    public function deleteValue(&$node, $key)
     {
         $cmp = $node->compareTo($key);
-
+        if ($cmp === true) {
+            return $node->deleteValue($node->left, $key);
+        } elseif ($cmp === false) {
+            return $node->deleteValue($node->right, $key);
+        } elseif ($cmp === $key) {
+            $temp = $node->right;
+            $node = $node->left;
+            if ($temp !== null) {
+                $temp = $temp->minNode($temp);
+                if ($temp !== null) {
+                    $temp->left = $node->right;
+                }
+            }
+            if ($node !== null) {
+                $node->right = $temp;
+            }
+            return $node;
+        }
+        return null;
     }
 
     public function min()
     {
-        return $this->minNode($this);
+        return key($this->minNode($this)->root);
     }
 
     /**
@@ -175,6 +194,9 @@ class BST extends Compare
      */
     public function minNode($node)
     {
+        if ($node === null) {
+            return null;
+        }
         if ($node->left === null) {
             return $node;
         } else {
