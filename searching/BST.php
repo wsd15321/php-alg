@@ -138,7 +138,7 @@ class BST extends Compare
     /**
      * @param BST $node
      */
-    public function deleteMaxValue(&$node)
+    private function deleteMaxValue(&$node)
     {
         if ($node->right === null) {
             $node = $node->left;
@@ -159,7 +159,7 @@ class BST extends Compare
     /**
      * @param BST $node
      */
-    public function deleteValue(&$node, $key)
+    private function deleteValue(&$node, $key)
     {
         $cmp = $node->compareTo($key);
         if ($cmp === true) {
@@ -192,7 +192,7 @@ class BST extends Compare
      * @param BST $node
      * @return BST;
      */
-    public function minNode($node)
+    private function minNode($node)
     {
         if ($node === null) {
             return null;
